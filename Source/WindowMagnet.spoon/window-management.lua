@@ -14,8 +14,10 @@ local height = 4
 
 for i, screen in pairs(hs.screen.allScreens()) do
     if (screen:frame().w > screen:frame().h) then
+        -- horizontal
         grid.setGrid(width .. ' * ' .. height, screen)
     else
+        -- vertical
         grid.setGrid(height .. ' * ' .. width, screen)
     end
 end
@@ -69,6 +71,52 @@ wm.bottomRight = function ()
     grid.set(fWindow, cell(fGrid.w/2, fGrid.h/2, fGrid.w/2, fGrid.h/2), fWindow:screen())
 end
 ---
+wm.leftThird = function ()
+    local fWindow = window.focusedWindow()
+    local fGrid = hs.grid.getGrid(fWindow:screen())
+    if (fGrid.w > fGrid.h) then
+        grid.set(fWindow, cell(0, 0, fGrid.w/3, fGrid.h), fWindow:screen())
+    else
+        grid.set(fWindow, cell(0, 0, fGrid.w, fGrid.h/3), fWindow:screen())
+    end
+end
+wm.leftTwoThirds = function ()
+    local fWindow = window.focusedWindow()
+    local fGrid = hs.grid.getGrid(fWindow:screen())
+    if (fGrid.w > fGrid.h) then
+        grid.set(fWindow, cell(0, 0, fGrid.w*2/3, fGrid.h), fWindow:screen())
+    else
+        grid.set(fWindow, cell(0, 0, fGrid.w, fGrid.h*2/3), fWindow:screen())
+    end
+end
+wm.centerThird = function ()
+    local fWindow = window.focusedWindow()
+    local fGrid = hs.grid.getGrid(fWindow:screen())
+    if (fGrid.w > fGrid.h) then
+        grid.set(fWindow, cell(fGrid.w/3, 0, fGrid.w/3, fGrid.h), fWindow:screen())
+    else
+        grid.set(fWindow, cell(0, fGrid.h/3, fGrid.w, fGrid.h/3), fWindow:screen())
+    end
+end
+wm.rightTwoThirds = function ()
+    local fWindow = window.focusedWindow()
+    local fGrid = hs.grid.getGrid(fWindow:screen())
+    if (fGrid.w > fGrid.h) then
+        grid.set(fWindow, cell(fGrid.w/3, 0, fGrid.w*2/3, fGrid.h, fGrid), fWindow:screen())
+    else
+        grid.set(fWindow, cell(0, fGrid.h/3, fGrid.w, fGrid.h*2/3, fGrid), fWindow:screen())
+    end
+end
+wm.rightThird = function ()
+    local fWindow = window.focusedWindow()
+    local fGrid = hs.grid.getGrid(fWindow:screen())
+    if (fGrid.w > fGrid.h) then
+        grid.set(fWindow, cell(fGrid.w*2/3, 0, fGrid.w/3, fGrid.h, fGrid), fWindow:screen())
+    else
+        grid.set(fWindow, cell(0, fGrid.h*2/3, fGrid.w, fGrid.h/3, fGrid), fWindow:screen())
+    end
+end
+---
 wm.maximizeWindow = function ()
     local fWindow = window.focusedWindow()
     grid.maximizeWindow(fWindow)
@@ -94,7 +142,7 @@ wm.previousDisplay = function ()
 end
 
 --- subscribe event
-wm.start = function ()
+wm.subscribe = function ()
     hs.window.filter.new(true):subscribe(hs.window.filter.windowFocused, function(win, appName, event)
         local initFrame = initFrames[win:id()]
         if (initFrame == nil) then
@@ -106,6 +154,5 @@ wm.start = function ()
         initFrames[win:id()] = nil
     end)
 end
-
 
 return wm

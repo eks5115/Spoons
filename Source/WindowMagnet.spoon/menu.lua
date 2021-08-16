@@ -1,4 +1,6 @@
 
+local log = hs.logger.new('WM - menu', 'debug')
+
 local obj = {}
 
 local iconAscii = [[ASCII:
@@ -20,6 +22,8 @@ local iconAscii = [[ASCII:
 ................
 ]]
 
+local menu = hs.menubar.new():setIcon(iconAscii)
+
 local function loadImage(name)
     return hs.image.imageFromPath(hs.spoons.resourcePath('resources/'..name..'Template.tiff'))
 end
@@ -37,30 +41,47 @@ local function titleFormat(name, shortcutKey)
         })
                  :setStyle({
             font = {
-                name = 'SimSong'
+                name = 'AppleGothic'
             }
         }, 0 - #shortcutKey)
     end
 end
 
 local function createMenuItems ()
+    local suffix = ''
+    local screen = hs.screen.mainScreen()
+    if (screen:frame().w > screen:frame().h) then
+        -- horizontal
+        suffix = ''
+        menu:stateImageSize({ w=80, h=12})
+    else
+        -- vertical
+        suffix = 'Vert'
+        menu:stateImageSize({ w=80, h=17})
+    end
     local items = {
-        { name = 'Left', shortcutKey = '⌃⌥ ←', offStateImage = loadImage('Left') },
-        { name = 'Right', shortcutKey = '⌃⌥ →', offStateImage = loadImage('Right') },
-        { name = 'Up', shortcutKey = '⌃⌥ ↑', offStateImage = loadImage('Up') },
-        { name = 'Down', shortcutKey = '⌃⌥ ↓', offStateImage = loadImage('Down')},
+        { name = 'Left', shortcutKey = '⌃⌥ ←', offStateImage = loadImage('Left'..suffix) },
+        { name = 'Right', shortcutKey = '⌃⌥ →', offStateImage = loadImage('Right'..suffix) },
+        { name = 'Up', shortcutKey = '⌃⌥ ↑', offStateImage = loadImage('Up'..suffix) },
+        { name = 'Down', shortcutKey = '⌃⌥ ↓', offStateImage = loadImage('Down'..suffix)},
         { name = '-' },
-        { name = 'Top Left', shortcutKey = '⌃⌥ U  ', offStateImage = loadImage('Top_Left')},
-        { name = 'Top Right', shortcutKey = '⌃⌥ I  ', offStateImage = loadImage('Top_Right')},
-        { name = 'Bottom Left', shortcutKey = '⌃⌥ J  ', offStateImage = loadImage('Bottom_Left')},
-        { name = 'Bottom Right', shortcutKey = '⌃⌥ K  ', offStateImage = loadImage('Bottom_Right')},
+        { name = 'Top Left', shortcutKey = '⌃⌥ U  ', offStateImage = loadImage('Top_Left'..suffix)},
+        { name = 'Top Right', shortcutKey = '⌃⌥ I  ', offStateImage = loadImage('Top_Right'..suffix)},
+        { name = 'Bottom Left', shortcutKey = '⌃⌥ J  ', offStateImage = loadImage('Bottom_Left'..suffix)},
+        { name = 'Bottom Right', shortcutKey = '⌃⌥ K  ', offStateImage = loadImage('Bottom_Right'..suffix)},
         { name = '-' },
-        { name = 'Next Display', shortcutKey = '⌃⌥⌘ →', offStateImage = loadImage('Next')},
-        { name = 'Previous Display', shortcutKey = '⌃⌥⌘ ←', offStateImage = loadImage('Previous')},
+        { name = 'Left Third', shortcutKey = '⌃⌥ D  ', offStateImage = loadImage('Left1Third'..suffix)},
+        { name = 'Left Two Thirds', shortcutKey = '⌃⌥ E  ', offStateImage = loadImage('Left2Thirds'..suffix)},
+        { name = 'Center Third', shortcutKey = '⌃⌥ F  ', offStateImage = loadImage('MiddleThird'..suffix)},
+        { name = 'Right Two Thirds', shortcutKey = '⌃⌥ T  ', offStateImage = loadImage('Right2Thirds'..suffix)},
+        { name = 'Right Third', shortcutKey = '⌃⌥ G  ', offStateImage = loadImage('Right1Third'..suffix)},
         { name = '-' },
-        { name = 'Maximize', shortcutKey = '⌃⌥ ↩', offStateImage = loadImage('Maximize')},
-        { name = 'Center', shortcutKey = '⌃⌥ C  ', offStateImage = loadImage('Center')},
-        { name = 'Restore', shortcutKey = '⌃⌥ ⌦', offStateImage = loadImage('Restore')},
+        { name = 'Next Display', shortcutKey = '⌃⌥⌘ →', offStateImage = loadImage('Next'..suffix)},
+        { name = 'Previous Display', shortcutKey = '⌃⌥⌘ ←', offStateImage = loadImage('Previous'..suffix)},
+        { name = '-' },
+        { name = 'Maximize', shortcutKey = '⌃⌥ ↩', offStateImage = loadImage('Maximize'..suffix)},
+        { name = 'Center', shortcutKey = '⌃⌥ C  ', offStateImage = loadImage('Center'..suffix)},
+        { name = 'Restore', shortcutKey = '⌃⌥ ⌫', offStateImage = loadImage('Restore'..suffix)},
     }
     local menuItems = {}
     for i, v in ipairs(items) do
@@ -74,8 +95,6 @@ local function createMenuItems ()
     return menuItems
 end
 
-local menu = hs.menubar.new():setIcon(iconAscii)
-menu:stateImageSize({ w=80, h=10})
-menu:setMenu(createMenuItems())
+menu:setMenu(createMenuItems)
 
 return menu

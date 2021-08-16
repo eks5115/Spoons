@@ -33,6 +33,6 @@ obj.windowManagement = wm
 obj.keyBinding = kb
 obj.menu = menu
 
-wm:start()
+wm:subscribe()
 
 return obj

@@ -25,10 +25,18 @@ bindHotkeys({'ctrl', 'alt'}, {
 })
 
 bindHotkeys({'ctrl', 'alt'}, {
-    u = wm.topLeft,    -- ⌃⌥⌘ + U
-    i = wm.topRight,   -- ⌃⌥⌘ + I
-    j = wm.bottomLeft, -- ⌃⌥⌘ + J
-    k = wm.bottomRight -- ⌃⌥⌘ + K
+    u = wm.topLeft,    -- ⌃⌥ + U
+    i = wm.topRight,   -- ⌃⌥ + I
+    j = wm.bottomLeft, -- ⌃⌥ + J
+    k = wm.bottomRight -- ⌃⌥ + K
+})
+
+bindHotkeys({'ctrl', 'alt'}, {
+    d = wm.leftThird,           -- ⌃⌥ + D
+    e = wm.leftTwoThirds,       -- ⌃⌥ + E
+    f = wm.centerThird,         -- ⌃⌥ + F
+    t = wm.rightTwoThirds,      -- ⌃⌥ + T
+    g = wm.rightThird           -- ⌃⌥ + G
 })
 
 bindHotkeys({'ctrl', 'alt', 'cmd'}, {
@@ -37,9 +45,9 @@ bindHotkeys({'ctrl', 'alt', 'cmd'}, {
 })
 
 bindHotkeys({'ctrl', 'alt'}, {
-    c = wm.centerOnScreen,          -- ⌃⌥⌘ + C
-    ["return"] = wm.maximizeWindow, -- ⌃⌥⌘ + ⏎
-    delete = wm.restore             -- ⌃⌥⌘ + ⌦
+    c = wm.centerOnScreen,          -- ⌃⌥ + C
+    ["return"] = wm.maximizeWindow, -- ⌃⌥ + ⏎
+    delete = wm.restore             -- ⌃⌥ + ⌫
 })
 
 for mods, keyFus in pairs(kb.bindings) do
