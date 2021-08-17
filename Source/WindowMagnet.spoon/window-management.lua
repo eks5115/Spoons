@@ -128,7 +128,10 @@ end
 initFrames = {}
 wm.restore = function ()
     local fWindow = window.focusedWindow()
-    fWindow:setFrame(initFrames[fWindow:id()])
+    local frame = initFrames[fWindow:id()]
+    if (not frame == nil) then
+        fWindow:setFrame(frame)
+    end
 end
 ---
 wm.nextDisplay = function ()

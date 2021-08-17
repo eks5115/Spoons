@@ -1,6 +1,7 @@
 
 local hotkey = require('hs.hotkey')
 local wm = dofile(hs.spoons.resourcePath('window-management.lua'))
+local menu = dofile(hs.spoons.resourcePath('menu.lua'))
 
 local kb = {
     bindings = {}
@@ -50,11 +51,15 @@ bindHotkeys({'ctrl', 'alt'}, {
     delete = wm.restore             -- ⌃⌥ + ⌫
 })
 
-for mods, keyFus in pairs(kb.bindings) do
-    print(mods)
-    for key, fu in pairs(keyFus) do
-        print(key)
-    end
-end
+bindHotkeys({'ctrl', 'alt'}, {
+    m = menu.triggerMenuIcon,          -- ⌃⌥ + M
+})
+
+--for mods, keyFus in pairs(kb.bindings) do
+--    print(mods)
+--    for key, fu in pairs(keyFus) do
+--        print(key)
+--    end
+--end
 
 return kb

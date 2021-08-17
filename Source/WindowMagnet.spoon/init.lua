@@ -35,4 +35,6 @@ obj.menu = menu
 
 wm:subscribe()
 
+menu:create()
+
 return obj
