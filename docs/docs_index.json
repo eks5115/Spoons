@@ -331,6 +331,12 @@
     "type": "Variable"
   },
   {
+    "desc": "A string specifying the path to the `brew` executable. Defaults to `/usr/local/bin/brew`",
+    "module": "BrewInfo",
+    "name": "brew_path",
+    "type": "Variable"
+  },
+  {
     "desc": "If `true`, and no text is currently selected in the terminal, issue a double-click to select the text below the cursor, and use that as the input to `brew info`. See also `BrewInfo.select_text_modifiers`. Defaults to `true`.",
     "module": "BrewInfo",
     "name": "select_text_if_needed",
